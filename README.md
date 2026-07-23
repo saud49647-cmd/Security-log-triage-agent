@@ -26,7 +26,7 @@ Agent fundamentals:
 The agent calls record_classification, a real tool, and the LLM decides the category, severity, and rationale itself. If it fails to call the tool, the code catches that and asks it to try again, up to 3 times. Tested with a high severity log and a low severity log, both got classified correctly through real tool calls.
 
 Multi-agent / handoff architecture:
-The workflow checks severity after classification. If severity is high or critical, it calls escalate_to_human, which pauses and waits for a person. If severity is low or medium, it resolves on its own. This is the handoff, tested and confirmed working both ways.
+The LLM has two tools: record_classification and escalate_to_analyst. It decides on its own whether to call escalate_to_analyst. If it does, the workflow pauses for a human. If not, it resolves itself. The escalation choice is made by the LLM, not a fixed rule.
 
 RAG pipeline:
 Reference threat pattern text is embedded and stored in an in memory vector store. retrieve_context_task always runs first and pulls relevant context before classification happens. This is 2 step RAG, always retrieve then classify, since every log needs the same kind of grounding.

@@ -32,7 +32,7 @@ RAG pipeline:
 Reference threat pattern text is embedded and stored in an in memory vector store. retrieve_context_task always runs first and pulls relevant context before classification happens. This is 2 step RAG, always retrieve then classify, since every log needs the same kind of grounding.
 
 Context and state management:
-InMemorySaver keeps the state of a run so it can pause and resume later. This is short term memory for a single log's run. There is no long term memory saved across different logs in this version.
+InMemorySaver keeps the state of a run so it can pause and resume later. This is short term memory for a single log's run.
 
 Human in the loop:
 escalate_to_human calls interrupt, which really pauses the workflow. Tested with a high severity log, it paused, printed the case details, then resumed once a decision was typed in.
